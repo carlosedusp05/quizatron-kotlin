@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.Dp
 import com.aulasandroid.quizatron.R
 
 @Composable
-fun LogoQuiz(modifier: Modifier = Modifier, size: Dp) {
+fun logoQuiz(modifier: Modifier = Modifier, size: Dp) {
     Image(
         painter = painterResource(R.drawable.quiz),
         contentDescription = "Logo quiz",
