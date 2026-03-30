@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,7 +23,15 @@ import com.aulasandroid.quizatron.components.buttonAmarelo
 import com.aulasandroid.quizatron.components.logoQuiz
 
 @Composable
-fun telaInicialScreen(modifier: Modifier = Modifier, navController: NavController) {
+fun telaInicialScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    resete: () -> Unit
+) {
+    var telaInicialViewModel = TelaInicialViewModel()
+
+    val nome by telaInicialViewModel.nome.observeAsState(initial = "")
+
     Column(modifier = modifier
         .background(Color(77, 206, 255, 234))
         .fillMaxSize(),
@@ -47,6 +58,14 @@ fun telaInicialScreen(modifier: Modifier = Modifier, navController: NavControlle
                 fontSize = 30.sp
             )
         }
+
+        TextField(
+            value = nome,
+            onValueChange = {
+                telaInicialViewModel.mudarNome(it)
+            }
+        )
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -54,7 +73,7 @@ fun telaInicialScreen(modifier: Modifier = Modifier, navController: NavControlle
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            buttonAmarelo(modifier = Modifier, text = "COMEÇAR!", navController)
+            buttonAmarelo(modifier = Modifier, text = "COMEÇAR!", navController, resete = resete)
         }
     }
 }

@@ -15,10 +15,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun buttonAmarelo(modifier: Modifier = Modifier, text: String, navController: NavController) {
+fun buttonAmarelo(
+    modifier: Modifier = Modifier,
+    text: String,
+    navController: NavController,
+    resete: () -> Unit
+) {
     Button(
         onClick = {
-            navController.navigate("pergunta-um")
+                    navController.navigate("pergunta-um")
+                    resete()
                   },
         modifier = Modifier .width(250.dp) .height(55.dp),
         colors = ButtonDefaults.buttonColors(Color.Yellow),

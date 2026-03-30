@@ -20,12 +20,15 @@ import androidx.compose.ui.unit.sp
 import org.w3c.dom.Text
 
 @Composable
-fun tituloPergunta(modifier: Modifier = Modifier, text: String) {
+fun tituloPergunta(
+    modifier: Modifier = Modifier,
+    text: String,
+    corFundo: Color) {
     Row(
         modifier = modifier
             .height(50.dp)
             .width(300.dp)
-            .background(Color(0xFF8ED19F), RoundedCornerShape(15.dp))
+            .background(corFundo, RoundedCornerShape(15.dp))
             .border(2.dp, Color.Black, RoundedCornerShape(15.dp))
             ,
         Arrangement.Center,

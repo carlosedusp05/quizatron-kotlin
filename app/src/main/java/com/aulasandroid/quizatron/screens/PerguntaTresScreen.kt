@@ -26,7 +26,11 @@ import com.aulasandroid.quizatron.components.pergunta
 import com.aulasandroid.quizatron.components.tituloPergunta
 
 @Composable
-fun perguntaTresScreen(modifier: Modifier = Modifier, navController: NavController) {
+fun perguntaTresScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    acerto: () -> Unit
+) {
     Column(
         modifier = modifier
             .background(Color(250, 107, 225, 255))
@@ -49,7 +53,7 @@ fun perguntaTresScreen(modifier: Modifier = Modifier, navController: NavControll
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            tituloPergunta(modifier = Modifier, text = "Pergunta 3 de 3")
+            tituloPergunta(modifier = Modifier, text = "Pergunta 3 de 3", Color(0xFF8ED19F))
         }
 
         Row(modifier = Modifier
@@ -72,10 +76,10 @@ fun perguntaTresScreen(modifier: Modifier = Modifier, navController: NavControll
                 ) {
                     pergunta(modifier = Modifier, text = "Qual o nome do segundo dia da semana, em inglês?")
 
-                    alternativa(modifier = Modifier, text = "Friday", navController,)
-                    alternativaCerta(modifier = Modifier, text = "Monday", navController,)
-                    alternativa(modifier = Modifier, text = "Sunday", navController,)
-                    alternativa(modifier = Modifier, text = "Thursday", navController,)
+                    alternativa(modifier = Modifier, text = "Friday", navController,0)
+                    alternativaCerta(modifier = Modifier, text = "Monday", navController,0, acerto = acerto)
+                    alternativa(modifier = Modifier, text = "Sunday", navController,0)
+                    alternativa(modifier = Modifier, text = "Thursday", navController,0)
                 }
             }
         }

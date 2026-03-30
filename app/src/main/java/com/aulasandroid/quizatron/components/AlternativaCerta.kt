@@ -1,5 +1,6 @@
 package com.aulasandroid.quizatron.components
 
+import android.R.attr.text
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,24 +26,29 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun alternativaCerta(modifier: Modifier = Modifier, text: String, navController: NavController, numeroQuestao: Int = 0) {
+fun alternativaCerta(
+    modifier: Modifier = Modifier,
+    text: String,
+    navController: NavController,
+    numeroQuestao: Int = 0,
+    acerto: () -> Unit
+    ) {
 
     var corDoBotao by remember {
         mutableStateOf(Color.Transparent)
     }
 
-    var route = ""
-    if(numeroQuestao == 1)
-        route = "pergunta-dois"
-    else if(numeroQuestao == 2)
-        route = "pergunta-tres"
-    else
-    route = "tela-final"
+    val route = when {
+        numeroQuestao == 1 -> "pergunta-dois"
+        numeroQuestao == 2 -> "pergunta-tres"
+        else -> "tela-final"
+    }
 
     OutlinedButton(
         onClick = {
             navController.navigate(route)
             corDoBotao = Color.Green
+            acerto()
         },
         border = BorderStroke(1.dp, Color(0xFFA2A2A2)),
         shape = RoundedCornerShape(15.dp),

@@ -27,7 +27,11 @@ import com.aulasandroid.quizatron.components.pergunta
 import com.aulasandroid.quizatron.components.tituloPergunta
 
 @Composable
-fun perguntaUmScreen(modifier: Modifier = Modifier, navController: NavController) {
+fun perguntaUmScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    acerto: () -> Unit
+) {
     Column(
         modifier = modifier
             .background(Color(250, 107, 225, 255))
@@ -50,7 +54,7 @@ fun perguntaUmScreen(modifier: Modifier = Modifier, navController: NavController
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            tituloPergunta(modifier = Modifier, text = "Pergunta 1 de 3")
+            tituloPergunta(modifier = Modifier, text = "Pergunta 1 de 3", Color(0xFF8ED19F))
         }
 
         Row(modifier = Modifier
@@ -75,7 +79,7 @@ fun perguntaUmScreen(modifier: Modifier = Modifier, navController: NavController
 
                     alternativa(modifier = Modifier, text = "Terra", navController, 1)
                     alternativa(modifier = Modifier, text = "Saturno", navController,1)
-                    alternativaCerta(modifier = Modifier, text = "Marte", navController,1)
+                    alternativaCerta(modifier = Modifier, text = "Marte", navController,1, acerto = acerto)
                     alternativa(modifier = Modifier, text = "Vênus", navController,1)
 
                 }

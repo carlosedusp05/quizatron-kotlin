@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,7 +23,15 @@ import com.aulasandroid.quizatron.components.logoQuiz
 import com.aulasandroid.quizatron.components.tituloPergunta
 
 @Composable
-fun telaFinalScreen(modifier: Modifier = Modifier, navController: NavController) {
+fun telaFinalScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    pontos: Int,
+    resete: () -> Unit
+) {
+
+    val telaInicialViewModel = TelaInicialViewModel()
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -44,9 +54,15 @@ fun telaFinalScreen(modifier: Modifier = Modifier, navController: NavController)
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            tituloPergunta(modifier = Modifier, text = "Bom trabalho!")
+            when (pontos) {
+                0 -> tituloPergunta(modifier = Modifier, text = "Mandou mal!", Color.Red)
+                1 -> tituloPergunta(modifier = Modifier, text = "Já é um começo!", Color(0xFFE1601D))
+                2 -> tituloPergunta(modifier = Modifier, text = "Quase perfeito!", Color.Yellow)
+                else -> tituloPergunta(modifier = Modifier, text = "Bom trabalho!", Color(0xFF8ED19F))
+            }
+
             Text(
-                text = "Você acertou 1 de 3 perguntas!",
+                text = "${telaInicialViewModel.nome.observeAsState().value} você acertou $pontos de 3 perguntas!",
                 color = Color.Black,
                 fontSize = 20.sp
             )
@@ -57,7 +73,7 @@ fun telaFinalScreen(modifier: Modifier = Modifier, navController: NavController)
             .height(75.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            buttonAmarelo(modifier = Modifier, text = "JOGAR NOVAMENTE", navController)
+            buttonAmarelo(modifier = Modifier, text = "JOGAR NOVAMENTE", navController, resete = resete)
         }
     }
 }
