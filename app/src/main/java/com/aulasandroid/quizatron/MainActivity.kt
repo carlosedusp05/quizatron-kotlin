@@ -38,11 +38,8 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
                     var mainActivityViewModel = MainActivityViewModel()
-                    var telaInicialViewModel = TelaInicialViewModel()
 
                     val pontos by mainActivityViewModel.pontos.observeAsState(initial = 0)
-
-                    val nome by telaInicialViewModel.nome.observeAsState(initial = "")
 
                     val navController = rememberNavController()
 
@@ -52,56 +49,50 @@ class MainActivity : ComponentActivity() {
                         exitTransition = {
                             slideOutOfContainer(
                                 towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                                animationSpec = tween (750)
+                                animationSpec = tween (50)
                             )
                         },
                         enterTransition = {
                             slideIntoContainer(
                                 towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                                animationSpec = tween(750)
+                                animationSpec = tween(50)
                             )
                         }
                     )
                     {
-                        composable( route = "tela-inicial/{nome}",
-                                arguments = listOf(
-                                navArgument(nome) {
-                                    type = NavType.StringType
-                                }
-                                )
-                        ){
+                        composable( route = "tela-inicial"){
+
                             telaInicialScreen(
                                 navController = navController,
-                                resete = {mainActivityViewModel.resetarPontos()}
+                                resete = {mainActivityViewModel.resetarPontos() }
                             )
                         }
-                        composable( route = "pergunta-um/{nome}"){
+                        composable( route = "pergunta-um")
+                        {
                             perguntaUmScreen(
                                 navController = navController,
                                 acerto = {mainActivityViewModel.incrementarPontos()}
                                 )
                         }
-                        composable( route = "pergunta-dois/{nome}"){
+                        composable( route = "pergunta-dois"){
                             perguntaDoisScreen(
                                 navController = navController,
                                 acerto = {mainActivityViewModel.incrementarPontos()}
                             )
                         }
-                        composable( route = "pergunta-tres/{nome}"){
+                        composable( route = "pergunta-tres"){
                             perguntaTresScreen(
                                 navController = navController,
                                 acerto = {mainActivityViewModel.incrementarPontos()}
                             )
                         }
-                        composable(route = "tela-final/{nome}") {
+                        composable(route = "tela-final") {
                             telaFinalScreen(
                                 navController = navController,
                                 pontos = pontos,
                                 resete = { mainActivityViewModel.resetarPontos()}
                             )
                         }
-
-
                     }
 
                 }
