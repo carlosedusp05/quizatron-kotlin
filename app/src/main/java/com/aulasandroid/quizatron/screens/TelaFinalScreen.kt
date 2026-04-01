@@ -27,11 +27,9 @@ fun telaFinalScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
     pontos: Int,
-    resete: () -> Unit
+    resete: () -> Unit,
+    viewModel: TelaInicialViewModel
 ) {
-
-    val telaInicialViewModel = TelaInicialViewModel()
-
 
     Column(
         modifier = modifier
@@ -63,7 +61,7 @@ fun telaFinalScreen(
             }
 
             Text(
-                text = "${telaInicialViewModel.nome.observeAsState().value} você acertou $pontos de 3 perguntas!",
+                text = "${viewModel.nome.observeAsState().value} você acertou $pontos de 3 perguntas!",
                 color = Color.Black,
                 fontSize = 20.sp
             )

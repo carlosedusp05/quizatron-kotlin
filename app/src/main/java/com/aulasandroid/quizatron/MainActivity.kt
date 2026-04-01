@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
@@ -37,7 +38,8 @@ class MainActivity : ComponentActivity() {
             QuizatronTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-                    var mainActivityViewModel = MainActivityViewModel()
+                    val mainActivityViewModel = MainActivityViewModel()
+                    val telaInicialViewModel = TelaInicialViewModel()
 
                     val pontos by mainActivityViewModel.pontos.observeAsState(initial = 0)
 
@@ -64,7 +66,8 @@ class MainActivity : ComponentActivity() {
 
                             telaInicialScreen(
                                 navController = navController,
-                                resete = {mainActivityViewModel.resetarPontos() }
+                                resete = {mainActivityViewModel.resetarPontos() },
+                                viewModel = telaInicialViewModel
                             )
                         }
                         composable( route = "pergunta-um")
@@ -90,7 +93,8 @@ class MainActivity : ComponentActivity() {
                             telaFinalScreen(
                                 navController = navController,
                                 pontos = pontos,
-                                resete = { mainActivityViewModel.resetarPontos()}
+                                resete = { mainActivityViewModel.resetarPontos()},
+                                viewModel = telaInicialViewModel
                             )
                         }
                     }

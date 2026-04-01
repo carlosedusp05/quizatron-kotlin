@@ -26,11 +26,11 @@ import com.aulasandroid.quizatron.components.logoQuiz
 fun telaInicialScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    resete: () -> Unit
+    resete: () -> Unit,
+    viewModel: TelaInicialViewModel
 ) {
-    var telaInicialViewModel = TelaInicialViewModel()
 
-    val nome by telaInicialViewModel.nome.observeAsState(initial = "")
+    val nome by viewModel.nome.observeAsState(initial = "")
 
     Column(modifier = modifier
         .background(Color(77, 206, 255, 234))
@@ -62,7 +62,7 @@ fun telaInicialScreen(
         TextField(
             value = nome,
             onValueChange = {
-                telaInicialViewModel.mudarNome(it)
+                viewModel.mudarNome(it)
             }
         )
 
